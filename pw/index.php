@@ -29,7 +29,7 @@ $buku = query("SELECT * FROM buku");
 </nav>
 
 <!-- table -->
-  <table class="table table-dark " cellpadding="0" cellspacing="0" >
+  <table class="table  table-striped table-hover " cellpadding="0" cellspacing="0" >
   <div class="container">
     <tr>
       <th>No</th>
