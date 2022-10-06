@@ -1,7 +1,14 @@
 <?php
 require 'functions.php';
 $buku = query("SELECT * FROM buku");
+
+// tombol cari ditekn
+if( isset($_POST["cari"]) ) {
+  $buku = cari($_POST["keyword"]);
+}
+
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,27 +17,30 @@ $buku = query("SELECT * FROM buku");
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Daftar Bubu</title>
+  <title>Daftar Buku</title>
   <link rel="stylesheet" href="css/style.css" class="css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 </head>
 <body>
   
 <!-- navbar -->
-<nav class="navbar bg-dark">
+<nav class="navbar" style="background-color: #E6B325;">
   <div class="container-fluid">
-    <a class="navbar-brand">Daftar Buku</a>
-    <form class="d-flex" role="search">
-      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success" type="submit">Search</button>
+  <span class="navbar-brand mb-3 h1" >Daftar Buku</span>
+    <form class="d-flex" role="search" action="" method="POST">
+      <input class="form-control me-2" type="text" name="keyword" autocomplete="off" placeholder="Search" aria-label="Search">
+      
+      <button class="btn btn-outline-success" type="submit" name="cari">Search</button>
+      
     </form>
   </div>
-  <br><br>
 </nav>
 
+
 <!-- table -->
-  <table class="table  table-striped table-hover " cellpadding="0" cellspacing="0" >
+  <table class="table table-dark table-hover" cellpadding="0" cellspacing="0" >
   <div class="container">
+
     <tr>
       <th>No</th>
       <th>Judul Buku</th>
@@ -53,10 +63,21 @@ $buku = query("SELECT * FROM buku");
         <td><?= $b['penerbit']; ?></td>
         <td><img src="img/<?= $b['gambar']; ?>" class="rounded float-start" width="120"></td>
         <td>
-        <div class="d-grid gap-2 d-md-block">
-          <button class="btn btn-light" type="button">Tambah</button>
-          <button class="btn btn-light" type="button">Hapus</button>
-        </div>
+  
+      <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+          <button class="add mb-3 btn btn-success rounded-pill">
+                    <a href="ubah.php?id=<?= $b['id']; ?>" style="text-decoration:none;color:white;">Ubah</a>
+          </button>
+
+          <button class="add mb-3 btn btn-warning rounded-pill">
+                    <a href="hapus.php?id=<?= $b['id']; ?>" onclick="return confirm ('Apakah anda yakin?');" style="text-decoration:none;color:white;">Hapus</a>
+          </button>
+
+          <button class="add mb-3 btn btn-primary rounded-pill">
+                    <a href="tambah.php" style="text-decoration:none;color:white;">Tambah Data Buku</a>
+          </button>
+      </div>
+
         </td>
       </tr>
 
